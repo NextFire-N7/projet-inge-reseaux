@@ -74,7 +74,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "shell", inline: <<-SHELL
-    pacman --noconfirm -S iperf3
+    pacman --noconfirm -S iperf
   SHELL
 
   config.vm.define "server" do |server|
