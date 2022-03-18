@@ -77,9 +77,12 @@ Vagrant.configure("2") do |config|
     pacman --noconfirm -S iperf
   SHELL
 
+  config.ssh.username = "vagrant"
+  config.ssh.password = "vagrant"
+
   config.vm.define "server" do |server|
     server.vm.network "private_network", virtualbox__intnet: "back"
-    server.vm.provision "shell", inline: <<-SHELL
+    server.vm.provision "shell", run: "always", inline: <<-SHELL
       ip a a 100.0.0.2/24 dev eth1
       ip r a 200.0.0.0/24 via 100.0.0.1
     SHELL
@@ -88,7 +91,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "router" do |router|
     router.vm.network "private_network", virtualbox__intnet: "back"
     router.vm.network "private_network", virtualbox__intnet: "front"
-    router.vm.provision "shell", inline: <<-SHELL
+    router.vm.provision "shell", run: "always", inline: <<-SHELL
       sysctl -w net.ipv4.ip_forward=1
       ip a a 100.0.0.1/24 dev eth1
       ip a a 200.0.0.1/24 dev eth2
@@ -97,7 +100,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "client_a" do |client_a|
     client_a.vm.network "private_network", virtualbox__intnet: "front"
-    client_a.vm.provision "shell", inline: <<-SHELL
+    client_a.vm.provision "shell", run: "always", inline: <<-SHELL
       ip a a 200.0.0.2/24 dev eth1
       ip r a 100.0.0.0/24 via 200.0.0.1
     SHELL
@@ -105,7 +108,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "client_b" do |client_b|
     client_b.vm.network "private_network", virtualbox__intnet: "front"
-    client_b.vm.provision "shell", inline: <<-SHELL
+    client_b.vm.provision "shell", run: "always", inline: <<-SHELL
       ip a a 200.0.0.3/24 dev eth1
       ip r a 100.0.0.0/24 via 200.0.0.1
     SHELL
@@ -113,7 +116,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "client_c" do |client_c|
     client_c.vm.network "private_network", virtualbox__intnet: "front"
-    client_c.vm.provision "shell", inline: <<-SHELL
+    client_c.vm.provision "shell", run: "always", inline: <<-SHELL
       ip a a 200.0.0.4/24 dev eth1
       ip r a 100.0.0.0/24 via 200.0.0.1
     SHELL
