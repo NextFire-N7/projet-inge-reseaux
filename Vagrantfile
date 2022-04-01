@@ -74,7 +74,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "shell", inline: <<-SHELL
-    pacman --noconfirm -S iperf
+    pacman --noconfirm -S iperf iperf3 tcpdump
   SHELL
 
   config.ssh.username = "vagrant"
