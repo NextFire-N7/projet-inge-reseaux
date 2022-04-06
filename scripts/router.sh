@@ -30,6 +30,7 @@ tc class add dev eth1 parent 1: classid 1:1 htb rate 10mbit burst 15k
 
 ###### Filters ######
 
+# Shape all outcoming traffic to 10mbps
 tc filter add dev eth1 protocol ip parent 1: prio 1 matchall flowid 1:1
 
 # This command adds a filter to the qdisc 1: of dev eth1, set the

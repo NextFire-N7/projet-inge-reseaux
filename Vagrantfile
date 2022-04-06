@@ -85,6 +85,7 @@ Vagrant.configure("2") do |config|
     server.vm.provision "shell", run: "always", inline: <<-SHELL
       ip a a 100.0.0.2/24 dev eth1
       ip r a 200.0.0.0/24 via 100.0.0.1
+      exit 0
     SHELL
   end
 
@@ -95,6 +96,7 @@ Vagrant.configure("2") do |config|
       sysctl -w net.ipv4.ip_forward=1
       ip a a 100.0.0.1/24 dev eth1
       ip a a 200.0.0.1/24 dev eth2
+      exit 0
     SHELL
   end
 
@@ -103,6 +105,7 @@ Vagrant.configure("2") do |config|
     client_a.vm.provision "shell", run: "always", inline: <<-SHELL
       ip a a 200.0.0.2/24 dev eth1
       ip r a 100.0.0.0/24 via 200.0.0.1
+      exit 0
     SHELL
   end
 
@@ -111,6 +114,7 @@ Vagrant.configure("2") do |config|
     client_b.vm.provision "shell", run: "always", inline: <<-SHELL
       ip a a 200.0.0.3/24 dev eth1
       ip r a 100.0.0.0/24 via 200.0.0.1
+      exit 0
     SHELL
   end
 
@@ -119,6 +123,7 @@ Vagrant.configure("2") do |config|
     client_c.vm.provision "shell", run: "always", inline: <<-SHELL
       ip a a 200.0.0.4/24 dev eth1
       ip r a 100.0.0.0/24 via 200.0.0.1
+      exit 0
     SHELL
   end
 end
