@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 # https://wiki.archlinux.org/title/Advanced_traffic_control
 # clients - router - eth1 server
 set -x

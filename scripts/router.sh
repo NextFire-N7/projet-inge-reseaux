@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 # https://wiki.archlinux.org/title/Advanced_traffic_control
 # clients - eth2 router eth1 - server
 set -x
@@ -42,10 +42,10 @@ tc class add dev eth1 parent 1:1 classid 1:30 htb rate 1kbit ceil ${BE_MAX_BANDW
 # tc qdisc add dev eth1 parent 1:20 handle 20: sfq perturb 10
 # tc qdisc add dev eth1 parent 1:30 handle 30: sfq perturb 10
 
-# According to one ressource, we can set up a "dsmask" qdisc:
-tc qdisc add dev eth1 parent 1:10 handle 10: dsmask indices 1 set_tc_index
-tc qdisc add dev eth1 parent 1:20 handle 20: dsmask indices 2 set_tc_index
-tc qdisc add dev eth1 parent 1:30 handle 20: dsmask indices 5 set_tc_index
+# According to one ressource, we can set up a "dsmark" qdisc:
+tc qdisc add dev eth1 parent 1:10 handle 10: dsmark indices 1 set_tc_index
+tc qdisc add dev eth1 parent 1:20 handle 20: dsmark indices 2 set_tc_index
+tc qdisc add dev eth1 parent 1:30 handle 30: dsmark indices 5 set_tc_index
 
 
 ###### Filters ######
