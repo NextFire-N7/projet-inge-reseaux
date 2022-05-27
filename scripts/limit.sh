@@ -4,7 +4,7 @@
 set -x
 tc qdisc del dev eth1 root
 
-# Shape all outgoing traffic to 10mbps
+# Shape all outcoming traffic to 10mbps
 tc qdisc add dev eth1 root handle 1: htb
 tc class add dev eth1 parent 1: classid 1:1 htb rate 10mbit burst 15k
 tc filter add dev eth1 protocol ip parent 1: prio 1 matchall flowid 1:1

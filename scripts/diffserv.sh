@@ -1,6 +1,6 @@
 #!/bin/sh
 # https://wiki.archlinux.org/title/Advanced_traffic_control
-# clients - eth2 router eth1 - server
+# clients - router - eth1 server
 set -x
 
 ### Queuing ###
@@ -30,6 +30,6 @@ tc class add dev eth1 parent 1:1 classid 1:30 htb rate 1kbit ceil 10mbit burst 1
 
 ## Using tc only ##
 
-tc filter add dev eth1 protocol ip parent 1: prio 1 u32 match ip dport 5201 0xffff flowid 1:10
-tc filter add dev eth1 protocol ip parent 1: prio 1 u32 match ip dport 5202 0xffff flowid 1:20
-tc filter add dev eth1 protocol ip parent 1: prio 1 u32 match ip dport 5203 0xffff flowid 1:30
+tc filter add dev eth1 protocol ip parent 1: prio 1 u32 match ip sport 5201 0xffff flowid 1:10
+tc filter add dev eth1 protocol ip parent 1: prio 1 u32 match ip sport 5202 0xffff flowid 1:20
+tc filter add dev eth1 protocol ip parent 1: prio 1 u32 match ip sport 5203 0xffff flowid 1:30
